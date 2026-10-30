@@ -1,0 +1,731 @@
+/*
+Theme Name: MaliExplorer
+Theme URI: https://maliexplorer.culture.ml
+Author: Équipe MaliExplorer (Hamath & Binôme)
+Author URI: https://maliexplorer.culture.ml
+Description: Thème WordPress sur mesure, luxueux et immersif pour MaliExplorer. Palette vert forêt impérial (#0F3822 / #0A2518) avec finitions et accents dorés (#D4AF37).
+Version: 1.1.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+Text Domain: maliexplorer
+*/
+
+/* ==========================================================================
+   1. VARIABLES & CHARTE GRAPHIQUE VERT FORÊT & OR LUXUEUX
+   ========================================================================== */
+:root {
+  /* Verts Forêt & Sombre */
+  --color-bg-darkest: #06170E;
+  --color-bg-dark: #0A2518;
+  --color-forest: #0F3822;
+  --color-card: #133F28;
+  --color-card-hover: #184E32;
+
+  /* Accents Dorés */
+  --color-gold: #D4AF37;
+  --color-gold-hover: #C29B27;
+  --color-gold-light: #F5E7B2;
+  --color-gold-subtle: rgba(212, 175, 55, 0.15);
+  --color-gold-gradient: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #B89325 100%);
+
+  /* Textes & Bordures */
+  --color-text-white: #FFFFFF;
+  --color-text-muted: #D1D5DB;
+  --color-border-gold: rgba(212, 175, 55, 0.3);
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+
+  /* Typographie */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Ombres */
+  --shadow-gold: 0 10px 25px -5px rgba(212, 175, 55, 0.35);
+  --shadow-gold-lg: 0 20px 35px -10px rgba(212, 175, 55, 0.45);
+  --shadow-phone: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(212, 175, 55, 0.25);
+
+  --header-height: 80px;
+}
+
+/* ==========================================================================
+   2. RESET & BASE
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-white);
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+img, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-text-white);
+  line-height: 1.25;
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ==========================================================================
+   3. COMPOSANTS & BOUTONS DORÉS
+   ========================================================================== */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: var(--color-gold-gradient);
+  color: #071F14 !important;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  padding: 0.85rem 1.85rem;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-gold);
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-gold-lg);
+  color: #000 !important;
+}
+
+.btn-outline-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: rgba(15, 56, 34, 0.7);
+  color: #FFFFFF !important;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 0.85rem 1.85rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border-gold);
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+}
+
+.btn-outline-gold:hover {
+  background: var(--color-card);
+  border-color: var(--color-gold);
+  color: var(--color-gold) !important;
+  transform: translateY(-2px);
+}
+
+.badge-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 9999px;
+  background: rgba(19, 63, 40, 0.8);
+  border: 1px solid var(--color-border-gold);
+  color: var(--color-gold);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(8px);
+}
+
+.glass-card {
+  background: rgba(15, 56, 34, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(19, 63, 40, 0.85);
+  border-color: rgba(212, 175, 55, 0.6);
+  transform: translateY(-4px);
+}
+
+/* ==========================================================================
+   4. HEADER FIXE
+   ========================================================================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(7, 31, 20, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  transition: all 0.3s ease;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+}
+
+.brand-text-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-heading);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.brand-symbol-gold {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--color-gold-gradient);
+  color: #071F14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.25rem;
+  box-shadow: var(--shadow-gold);
+}
+
+.brand-highlight-gold {
+  color: var(--color-gold);
+}
+
+.main-nav .nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.main-nav .nav-menu a {
+  color: #E5E7EB;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.main-nav .nav-menu a:hover {
+  color: var(--color-gold);
+}
+
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+/* Tiroir Mobile */
+.mobile-nav-drawer {
+  display: none;
+  background: #082015;
+  border-bottom: 1px solid var(--color-border-gold);
+  padding: 1.5rem;
+}
+
+.mobile-nav-drawer.is-active {
+  display: block;
+}
+
+.mobile-nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  list-style: none;
+}
+
+.mobile-nav-menu a {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #FFF;
+}
+
+/* ==========================================================================
+   5. HERO BANNER
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  min-height: 90vh;
+  padding-top: calc(var(--header-height) + 4rem);
+  padding-bottom: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-bg-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.42) contrast(1.15);
+  transform: scale(1.04);
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #0A2518 0%, rgba(10, 37, 24, 0.75) 50%, rgba(6, 23, 14, 0.88) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3.25rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.hero-title .gold-gradient-text {
+  background: var(--color-gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: #E5E7EB;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   6. LES 5 CATÉGORIES PRINCIPALES
+   ========================================================================== */
+.categories-section {
+  position: relative;
+  z-index: 20;
+  margin-top: -3.5rem;
+  margin-bottom: 5rem;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+}
+
+.category-card {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gold);
+  font-size: 1.5rem;
+  margin-bottom: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover .category-icon {
+  background: var(--color-gold-gradient);
+  color: #071F14;
+}
+
+.category-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.25rem;
+}
+
+.category-card:hover .category-title {
+  color: var(--color-gold);
+}
+
+.category-sub {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+
+/* ==========================================================================
+   7. MOCKUPS SMARTPHONES
+   ========================================================================== */
+.mockups-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+
+.mockup-card {
+  background: linear-gradient(180deg, var(--color-forest) 0%, var(--color-bg-darkest) 100%);
+  border-radius: 28px;
+  padding: 1.75rem;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  transition: all 0.35s ease;
+}
+
+.mockup-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212, 175, 55, 0.6);
+}
+
+.smartphone-frame {
+  width: 100%;
+  max-width: 260px;
+  aspect-ratio: 9/19;
+  border-radius: 38px;
+  border: 5px solid #2A4837;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+  box-shadow: var(--shadow-phone);
+  margin-bottom: 1.5rem;
+}
+
+.smartphone-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mockup-info {
+  width: 100%;
+  text-align: left;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mockup-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.mockup-info p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.link-gold {
+  color: var(--color-gold);
+  font-weight: 700;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ==========================================================================
+   8. IMMERSION 360°
+   ========================================================================== */
+.banner-360 {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-gold);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+  background: #092215;
+}
+
+.banner-360-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.55);
+}
+
+.banner-360-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(6, 23, 14, 0.95) 0%, rgba(10, 37, 24, 0.65) 60%, transparent 100%);
+}
+
+.banner-360-content {
+  position: relative;
+  z-index: 10;
+  max-width: 580px;
+  padding: 3.5rem;
+}
+
+.badge-360-pulse {
+  position: absolute;
+  right: 5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--color-gold-gradient);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #071F14;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6);
+  animation: pulseGold 2.5s infinite;
+  z-index: 10;
+}
+
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
+  50% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
+}
+
+/* ==========================================================================
+   9. COMMENT ÇA MARCHE (3 ÉTAPES)
+   ========================================================================== */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+
+.step-card {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.step-number {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--color-gold-gradient);
+  color: #071F14;
+  font-weight: 900;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-gold);
+}
+
+.step-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.step-desc {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   10. FOOTER COMPLET
+   ========================================================================== */
+.site-footer {
+  background: #05170D;
+  border-top: 1px solid var(--color-border-gold);
+  padding: 4.5rem 0 2.5rem 0;
+  color: #9CA3AF;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr 1fr 1.2fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+.footer-title {
+  color: #FFF;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.25rem;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 0.65rem;
+}
+
+.footer-links a:hover {
+  color: var(--color-gold);
+}
+
+.social-icons-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-forest);
+  border: 1px solid var(--color-border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  transition: all 0.25s ease;
+}
+
+.social-btn:hover {
+  background: var(--color-gold-gradient);
+  color: #071F14;
+  transform: translateY(-2px);
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.newsletter-input {
+  width: 100%;
+  padding: 0.85rem 1.15rem;
+  border-radius: 12px;
+  background: var(--color-forest);
+  border: 1px solid var(--color-border-gold);
+  color: #FFF;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.newsletter-input:focus {
+  border-color: var(--color-gold);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+}
+
+/* ==========================================================================
+   11. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .mockups-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.15rem;
+  }
+  .main-nav, .header-cta-desktop {
+    display: none;
+  }
+  .mobile-toggle {
+    display: block;
+  }
+  .categories-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mockups-grid, .steps-grid, .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .badge-360-pulse {
+    position: static;
+    margin: 2rem auto 0 auto;
+    transform: none;
+  }
+  .banner-360-content {
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+}

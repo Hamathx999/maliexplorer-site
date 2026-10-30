@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaliExplorer — Patrimoine, Culture &amp; Tourisme du Mali</title>
+  <meta name="description" content="Partez à la rencontre du Mali : un voyage immersif au cœur de son patrimoine, de ses trésors historiques et de sa culture millénaire avec l'application MaliExplorer.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇲🇱</text></svg>">
+
+  <!-- Google Fonts : Plus Jakarta Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN avec configuration sur-mesure fidele a la maquette -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mali: {
+              darkest: '#05180E',
+              dark: '#082315',
+              forest: '#0C2D1C',
+              card: '#103823',
+              cardHover: '#15452C',
+              green: '#14B866',
+              red: '#E11D48',
+              border: 'rgba(212, 175, 55, 0.3)',
+              borderSubtle: 'rgba(255, 255, 255, 0.12)',
+            },
+            gold: {
+              DEFAULT: '#D4AF37',
+              light: '#F5E7B2',
+              soft: 'rgba(212, 175, 55, 0.18)',
+              hover: '#C29B27',
+              dark: '#9E7C1B',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+          },
+          boxShadow: {
+            'gold': '0 10px 25px -5px rgba(212, 175, 55, 0.35), 0 8px 10px -6px rgba(212, 175, 55, 0.2)',
+            'gold-lg': '0 20px 35px -10px rgba(212, 175, 55, 0.45)',
+            'phone': '0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(212, 175, 55, 0.3)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Dégradé Or Impérial (#D4AF37) */
+    .bg-gold-gradient {
+      background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #B89325 100%);
+    }
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #FFF3C4 0%, #D4AF37 60%, #AA8219 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Animation pulse douce pour le badge 360 */
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7), 0 10px 25px rgba(0,0,0,0.5);
+      }
+      50% {
+        box-shadow: 0 0 0 18px rgba(212, 175, 55, 0), 0 15px 35px rgba(0,0,0,0.6);
+      }
+    }
+    .pulse-gold {
+      animation: pulse-glow 2.5s infinite;
+    }
+
+    /* Effet glassmorphism vert sombre */
+    .glass-card {
+      background: rgba(12, 45, 28, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+    .glass-card:hover {
+      background: rgba(16, 56, 35, 0.9);
+      border-color: rgba(212, 175, 55, 0.6);
+    }
+
+    /* Style du châssis smartphone */
+    .mockup-frame {
+      border: 5px solid #2A4837;
+      border-radius: 40px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(212, 175, 55, 0.25);
+    }
+  </style>
+</head>
+
+<body class="bg-[#082315] text-gray-100 font-sans antialiased selection:bg-gold selection:text-[#05180E]">
+
+  <!-- ==========================================================================
+       1. HEADER (Barre de navigation fixe)
+       ========================================================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#061C10]/95 backdrop-blur-md border-b border-mali-border/40 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo MaliExplorer avec symbole tricolore malien et or -->
+      <a href="#hero" class="flex items-center gap-3 group focus:outline-none">
+        <div class="flex items-center gap-1.5 p-1 bg-black/40 rounded-xl border border-gold/30">
+          <span class="w-2.5 h-7 rounded-sm bg-green-500"></span>
+          <span class="w-2.5 h-7 rounded-sm bg-yellow-400"></span>
+          <span class="w-2.5 h-7 rounded-sm bg-red-500"></span>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-2xl font-bold tracking-tight text-white font-display leading-none">
+            Mali<span class="text-gold">Explorer</span>
+          </span>
+          <span class="text-[10px] text-gray-400 tracking-wider uppercase font-sans mt-0.5">Culture &amp; Tourisme</span>
+        </div>
+      </a>
+
+      <!-- Liens de navigation Desktop -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-200">
+        <a href="#hero" class="hover:text-gold transition-colors duration-200 relative py-1 hover:after:w-full after:w-0 after:h-0.5 after:bg-gold after:absolute after:bottom-0 after:left-0 after:transition-all after:duration-300">Accueil</a>
+        <a href="#categories" class="hover:text-gold transition-colors duration-200 relative py-1 hover:after:w-full after:w-0 after:h-0.5 after:bg-gold after:absolute after:bottom-0 after:left-0 after:transition-all after:duration-300">Fonctionnalités</a>
+        <a href="#immersion360" class="hover:text-gold transition-colors duration-200 relative py-1 hover:after:w-full after:w-0 after:h-0.5 after:bg-gold after:absolute after:bottom-0 after:left-0 after:transition-all after:duration-300">Immersion 360°</a>
+        <a href="#how-it-works" class="hover:text-gold transition-colors duration-200 relative py-1 hover:after:w-full after:w-0 after:h-0.5 after:bg-gold after:absolute after:bottom-0 after:left-0 after:transition-all after:duration-300">À propos</a>
+      </nav>
+
+      <!-- CTA Téléchargement Desktop (Bouton doré fidèle à la maquette) -->
+      <div class="hidden md:block">
+        <a href="#download" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gold-gradient text-[#071F14] font-bold text-sm shadow-gold hover:shadow-gold-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+          <svg class="w-4 h-4 text-[#071F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          <span>Télécharger l'application</span>
+        </a>
+      </div>
+
+      <!-- Bouton Menu Mobile (Burger) -->
+      <button id="mobileMenuBtn" type="button" aria-label="Menu" class="md:hidden text-gray-200 hover:text-gold p-2 rounded-lg focus:outline-none">
+        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Tiroir Mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-[#082015] border-b border-mali-border/40 px-6 py-6 space-y-4">
+      <a href="#hero" class="block text-base font-medium text-gray-100 hover:text-gold mobile-nav-link">Accueil</a>
+      <a href="#categories" class="block text-base font-medium text-gray-100 hover:text-gold mobile-nav-link">Fonctionnalités</a>
+      <a href="#immersion360" class="block text-base font-medium text-gray-100 hover:text-gold mobile-nav-link">Immersion 360°</a>
+      <a href="#how-it-works" class="block text-base font-medium text-gray-100 hover:text-gold mobile-nav-link">À propos</a>
+      <div class="pt-4">
+        <a href="#download" class="block text-center w-full py-3 rounded-full bg-gold-gradient text-[#071F14] font-bold text-sm shadow-gold mobile-nav-link">
+          Télécharger l'application
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       2. SECTION HERO (Bannière d'en-tête immersive)
+       ========================================================================== -->
+  <section id="hero" class="relative pt-32 pb-24 flex flex-col items-center justify-center overflow-hidden">
+    <!-- Image de fond avec foule devant la mosquée de Djenné + overlay vert sombre -->
+    <div class="absolute inset-0 z-0">
+      <img src="maliexplorer-djenne.jpg" alt="Foule devant la Grande Mosquée de Djenné, Mali" class="w-full h-full object-cover object-center filter brightness-[0.42] contrast-[1.15] scale-105">
+      <!-- Dégradés de superposition vert forêt -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#082315] via-[#082315]/75 to-[#05180E]/90"></div>
+    </div>
+
+    <!-- Contenu Central Hero -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8">
+      
+      <!-- Badge prestige -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-mali-card/90 border border-gold/40 text-gold text-xs sm:text-sm font-semibold tracking-wide uppercase mb-6 backdrop-blur-md shadow-lg">
+        <span class="w-2 h-2 rounded-full bg-gold animate-ping"></span>
+        <span>Écosystème Culturel &amp; Touristique du Mali</span>
+      </div>
+
+      <!-- Grand titre accrocheur (Texte exact demandé) -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold font-display text-white tracking-tight leading-[1.25] mb-6 drop-shadow-lg">
+        Partez à la rencontre du Mali : <br class="hidden sm:inline">
+        <span class="text-gold-gradient">un voyage immersif</span> au cœur de son patrimoine et de ses trésors.
+      </h1>
+
+      <!-- Sous-titre (Texte exact demandé) -->
+      <p class="max-w-3xl mx-auto text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed font-normal mb-10 text-balance">
+        Téléchargez l'application MaliExplorer et plongez au cœur de notre patrimoine culturel, de nos sites historiques et de nos événements majeurs.
+      </p>
+
+      <!-- Boutons d'action Hero -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-16">
+        <a href="#download" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gold-gradient text-[#071F14] font-bold text-base shadow-gold hover:shadow-gold-lg hover:scale-105 transition-all duration-300">
+          <svg class="w-5 h-5 text-[#071F14]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+          </svg>
+          <span>Télécharger l'application</span>
+        </a>
+
+        <a href="#immersion360" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-mali-forest/90 hover:bg-mali-card text-white border border-gold/40 hover:border-gold font-semibold text-base backdrop-blur-md transition-all duration-300">
+          <svg class="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+          <span>Découvrir en 360°</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ==========================================================================
+         3. GRILLE DES 5 MODULES / CATEGORIES (Positionnée sur le bas du Hero comme sur la maquette)
+         ========================================================================== -->
+    <div id="categories" class="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-2">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5">
+        
+        <!-- Categorie 1: Patrimoine & Culture -->
+        <div class="glass-card rounded-2xl p-4 sm:p-5 text-center flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold mb-3 group-hover:bg-gold-gradient group-hover:text-mali-darkest transition-all duration-300 shadow-md">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-gold transition-colors leading-snug">
+            Patrimoine <br class="hidden sm:block">&amp; Culture
+          </h3>
+          <span class="text-[11px] text-gray-300 mt-1">Djenné, Tombouctou</span>
+        </div>
+
+        <!-- Categorie 2: Tourisme & Evenements -->
+        <div class="glass-card rounded-2xl p-4 sm:p-5 text-center flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold mb-3 group-hover:bg-gold-gradient group-hover:text-mali-darkest transition-all duration-300 shadow-md">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-gold transition-colors leading-snug">
+            Tourisme <br class="hidden sm:block">&amp; Événements
+          </h3>
+          <span class="text-[11px] text-gray-300 mt-1">Festivals, Billetterie</span>
+        </div>
+
+        <!-- Categorie 3: Economie & Investissement -->
+        <div class="glass-card rounded-2xl p-4 sm:p-5 text-center flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold mb-3 group-hover:bg-gold-gradient group-hover:text-mali-darkest transition-all duration-300 shadow-md">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-gold transition-colors leading-snug">
+            Économie <br class="hidden sm:block">&amp; Investissement
+          </h3>
+          <span class="text-[11px] text-gray-300 mt-1">Opportunités régionales</span>
+        </div>
+
+        <!-- Categorie 4: Education & Apprentissage -->
+        <div class="glass-card rounded-2xl p-4 sm:p-5 text-center flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold mb-3 group-hover:bg-gold-gradient group-hover:text-mali-darkest transition-all duration-300 shadow-md">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-gold transition-colors leading-snug">
+            Éducation <br class="hidden sm:block">&amp; Apprentissage
+          </h3>
+          <span class="text-[11px] text-gray-300 mt-1">Quiz &amp; Histoire orale</span>
+        </div>
+
+        <!-- Categorie 5: Artisanat & Produits locaux -->
+        <div class="glass-card rounded-2xl p-4 sm:p-5 text-center flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1.5 group cursor-pointer col-span-2 sm:col-span-1">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold mb-3 group-hover:bg-gold-gradient group-hover:text-mali-darkest transition-all duration-300 shadow-md">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+            </svg>
+          </div>
+          <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-gold transition-colors leading-snug">
+            Artisanat <br class="hidden sm:block">&amp; Produits locaux
+          </h3>
+          <span class="text-[11px] text-gray-300 mt-1">Bògòlanfini, Métiers d'or</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       4. SECTION "MaliExplorer en Action" (Mockups mobiles & Web fideles a la maquette)
+       ========================================================================== -->
+  <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-bold tracking-wider uppercase mb-3">
+        Interface Utilisateur Flutter &amp; Angular
+      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-white mb-4">
+        MaliExplorer en Action
+      </h2>
+      <p class="text-gray-300 text-base sm:text-lg">
+        Découvrez la richesse culturelle, historique et naturelle du Mali à travers une expérience mobile réactive, soignée et immersive.
+      </p>
+    </div>
+
+    <!-- Disposition inspirée de l'interface site web vitrine : Mockup smartphone réel + Écrans complémentaires -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+      
+      <!-- Mockup 1 (Principal) : Téléphone avec écran d'accueil réel -->
+      <div class="bg-gradient-to-b from-mali-forest to-mali-darkest rounded-3xl p-6 sm:p-7 border border-mali-border/40 flex flex-col items-center shadow-xl transition-all duration-300 hover:border-gold/60 group">
+        <div class="w-full max-w-[270px] aspect-[9/19] rounded-[36px] overflow-hidden mockup-frame bg-black relative mb-6 shadow-phone">
+          <!-- Dynamic Island -->
+          <div class="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-full z-20"></div>
+          <!-- Capture d'accueil de l'application -->
+          <img src="maliexplorer-accueil.png.jpg" alt="Application MaliExplorer Accueil" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="w-full text-left flex flex-col flex-grow">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-gold"></span>
+            <span class="text-xs font-bold tracking-wider uppercase text-gold">Vue Mobile Flutter</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2 font-display">Navigation &amp; Cartographie</h3>
+          <p class="text-gray-300 text-sm leading-relaxed mb-4 flex-grow">
+            Accès instantané aux 19 régions du Mali, recherche géolocalisée des sites historiques et informations culturelles enrichies.
+          </p>
+          <a href="#download" class="inline-flex items-center gap-2 text-sm font-bold text-gold hover:text-white transition-colors">
+            <span>En savoir plus</span>
+            <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mockup 2 : Fiche Patrimoine & Djenné -->
+      <div class="bg-gradient-to-b from-mali-forest to-mali-darkest rounded-3xl p-6 sm:p-7 border border-mali-border/40 flex flex-col items-center shadow-xl transition-all duration-300 hover:border-gold/60 group">
+        <div class="w-full max-w-[270px] aspect-[9/19] rounded-[36px] overflow-hidden mockup-frame bg-black relative mb-6 shadow-phone">
+          <div class="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-full z-20"></div>
+          <img src="maliexplorer-djenne.jpg" alt="Fiche Patrimoine Djenné" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="w-full text-left flex flex-col flex-grow">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-gold"></span>
+            <span class="text-xs font-bold tracking-wider uppercase text-gold">Patrimoine UNESCO</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2 font-display">Monuments &amp; Récits Historiques</h3>
+          <p class="text-gray-300 text-sm leading-relaxed mb-4 flex-grow">
+            Plongez dans l'architecture soudanaise emblématique avec fiches techniques, audioguides et galeries photographiques en haute définition.
+          </p>
+          <a href="#immersion360" class="inline-flex items-center gap-2 text-sm font-bold text-gold hover:text-white transition-colors">
+            <span>En savoir plus</span>
+            <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mockup 3 : Terroir & Gastronomie -->
+      <div class="bg-gradient-to-b from-mali-forest to-mali-darkest rounded-3xl p-6 sm:p-7 border border-mali-border/40 flex flex-col items-center shadow-xl transition-all duration-300 hover:border-gold/60 group">
+        <div class="w-full max-w-[270px] aspect-[9/19] rounded-[36px] overflow-hidden mockup-frame bg-black relative mb-6 shadow-phone">
+          <div class="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-full z-20"></div>
+          <img src="maliexplorer-plat.jpg" alt="Gastronomie Traditionnelle Malienne" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="w-full text-left flex flex-col flex-grow">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-gold"></span>
+            <span class="text-xs font-bold tracking-wider uppercase text-gold">Gastronomie Malienne</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2 font-display">Saveurs &amp; Coutumes Locales</h3>
+          <p class="text-gray-300 text-sm leading-relaxed mb-4 flex-grow">
+            Découvrez les spécialités culinaires régionales (Tiga Diga Na, Mafé, Fakoye, Tô) et l'artisanat traditionnel des peuples du Mali.
+          </p>
+          <a href="#download" class="inline-flex items-center gap-2 text-sm font-bold text-gold hover:text-white transition-colors">
+            <span>En savoir plus</span>
+            <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       5. SECTION "IMMERSION 360°" (Fidele a la maquette avec encadre gauche + badge relief dore)
+       ========================================================================== -->
+  <section id="immersion360" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative rounded-3xl overflow-hidden border border-gold/40 shadow-2xl bg-[#092215]">
+      
+      <div class="relative h-[440px] sm:h-[480px] w-full overflow-hidden">
+        <!-- Photo de Djenne rapprochee -->
+        <img src="maliexplorer-djenne.jpg" alt="Visite 360 Mosquée de Djenné" class="w-full h-full object-cover filter brightness-[0.6] contrast-[1.1] hover:scale-105 transition-transform duration-1000">
+        
+        <!-- Dégrade overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#05180E]/95 via-[#0A2518]/70 to-transparent"></div>
+
+        <!-- Encadre Gauche -->
+        <div class="absolute inset-0 flex items-center">
+          <div class="max-w-xl p-8 sm:p-12 lg:p-16">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/20 border border-gold/40 text-gold text-xs font-bold uppercase tracking-wider mb-4">
+              Visite Virtuelle Interactive
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-bold font-display text-white mb-4 leading-tight">
+              Explorez les lieux historiques du Mali en immersion 360°
+            </h2>
+            <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-8">
+              Pénétrez au cœur de la Grande Mosquée de Djenné, contemplez les manuscrits de Tombouctou et visitez les sanctuaires millénaires comme si vous y étiez.
+            </p>
+            <button onclick="openModal360()" class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-gold-gradient text-[#071F14] font-bold text-sm shadow-gold hover:shadow-gold-lg hover:scale-105 transition-all duration-300">
+              <svg class="w-5 h-5 text-[#071F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Lancer la visite 360°</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Badge "360°" distinctif en relief doré -->
+        <div class="absolute top-1/2 right-8 sm:right-16 lg:right-28 -translate-y-1/2 flex flex-col items-center cursor-pointer group" onclick="openModal360()">
+          <div class="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-gold-gradient pulse-gold flex flex-col items-center justify-center text-[#071F14] font-extrabold shadow-2xl group-hover:scale-110 transition-transform duration-300">
+            <span class="text-3xl sm:text-4xl font-display leading-none">360°</span>
+            <span class="text-[10px] sm:text-xs tracking-wider uppercase font-sans font-bold mt-1">Immersion</span>
+          </div>
+          <span class="mt-3 text-xs font-semibold text-gold tracking-wide uppercase bg-black/70 px-3.5 py-1 rounded-full backdrop-blur-sm border border-gold/30 shadow-lg">
+            Cliquer pour explorer
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       6. SECTION "COMMENT ÇA MARCHE ?" (3 Étapes avec numérotation élégante)
+       ========================================================================== -->
+  <section id="how-it-works" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-bold tracking-wider uppercase mb-3">
+        Prise en main en 3 étapes
+      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-white mb-4">
+        Comment ça marche ?
+      </h2>
+      <p class="text-gray-300 text-base sm:text-lg">
+        Votre passerelle vers la culture malienne en trois étapes simples et accessibles à tous.
+      </p>
+    </div>
+
+    <!-- 3 Colonnes numérotées -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+      
+      <!-- Étape 1 -->
+      <div class="glass-card rounded-3xl p-8 relative flex flex-col items-start transition-all duration-300 hover:border-gold hover:-translate-y-1.5 group">
+        <div class="w-14 h-14 rounded-2xl bg-gold-gradient text-[#071F14] font-extrabold text-2xl flex items-center justify-center mb-6 shadow-gold">
+          1
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3 font-display group-hover:text-gold transition-colors">
+          Télécharger &amp; Créer un compte
+        </h3>
+        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+          Téléchargez l'application mobile MaliExplorer gratuitement sans aucun frais d'inscription et personnalisez vos préférences culturelles.
+        </p>
+        <div class="mt-auto flex items-center gap-2 text-gold text-xs font-semibold">
+          <span>✓ Installation rapide Android &amp; iOS</span>
+        </div>
+      </div>
+
+      <!-- Étape 2 -->
+      <div class="glass-card rounded-3xl p-8 relative flex flex-col items-start transition-all duration-300 hover:border-gold hover:-translate-y-1.5 group">
+        <div class="w-14 h-14 rounded-2xl bg-gold-gradient text-[#071F14] font-extrabold text-2xl flex items-center justify-center mb-6 shadow-gold">
+          2
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3 font-display group-hover:text-gold transition-colors">
+          Sélectionner une région ou un site
+        </h3>
+        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+          Explorez les 19 régions du Mali sur la carte interactive et sélectionnez les monuments historiques, musées ou festivals que vous désirez visiter.
+        </p>
+        <div class="mt-auto flex items-center gap-2 text-gold text-xs font-semibold">
+          <span>✓ Mode connecté ou 100% hors-ligne</span>
+        </div>
+      </div>
+
+      <!-- Étape 3 -->
+      <div class="glass-card rounded-3xl p-8 relative flex flex-col items-start transition-all duration-300 hover:border-gold hover:-translate-y-1.5 group">
+        <div class="w-14 h-14 rounded-2xl bg-gold-gradient text-[#071F14] font-extrabold text-2xl flex items-center justify-center mb-6 shadow-gold">
+          3
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3 font-display group-hover:text-gold transition-colors">
+          Partir à l'aventure et explorer
+        </h3>
+        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+          Profitez d'audioguides immersifs, de panoramas 360°, réservez vos billets pour les festivals et testez vos connaissances avec les quiz.
+        </p>
+        <div class="mt-auto flex items-center gap-2 text-gold text-xs font-semibold">
+          <span>✓ Expérience touristique complète</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION TÉLÉCHARGEMENT DIRECT
+       ========================================================================== -->
+  <section id="download" class="py-20 bg-gradient-to-b from-[#082315] to-[#05180E] border-t border-b border-mali-border/40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="w-16 h-16 rounded-2xl bg-gold-gradient flex items-center justify-center text-[#071F14] mx-auto mb-6 shadow-gold">
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold font-display text-white mb-4">
+        Prêt à vivre l'expérience MaliExplorer ?
+      </h2>
+      <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mb-8">
+        Téléchargez dès maintenant l'application mobile et commencez votre exploration du patrimoine culturel malien.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="maliexplorer-accueil.png.jpg" download class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gold-gradient text-[#071F14] font-bold text-base shadow-gold hover:shadow-gold-lg hover:scale-105 transition-all">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+          <span>Télécharger le Package (.APK)</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       7. FOOTER (Pied de page complet fidele a la maquette)
+       ========================================================================== -->
+  <footer class="bg-[#05170D] text-gray-300 pt-16 pb-12 border-t border-mali-border/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-14">
+        
+        <!-- Colonne 1 : Logo et Presentation rapide -->
+        <div class="space-y-4">
+          <a href="#hero" class="flex items-center gap-3">
+            <div class="flex items-center gap-1.5 p-1 bg-black/40 rounded-xl border border-gold/30">
+              <span class="w-2.5 h-6 rounded-sm bg-green-500"></span>
+              <span class="w-2.5 h-6 rounded-sm bg-yellow-400"></span>
+              <span class="w-2.5 h-6 rounded-sm bg-red-500"></span>
+            </div>
+            <span class="text-xl font-bold tracking-tight text-white font-display">
+              Mali<span class="text-gold">Explorer</span>
+            </span>
+          </a>
+          <p class="text-sm leading-relaxed text-gray-300">
+            Plateforme numérique de référence pour la valorisation, la sauvegarde et le rayonnement touristique du patrimoine culturel malien.
+          </p>
+          <div class="text-xs text-gold font-medium">
+            🇲🇱 Fait avec passion pour le Mali
+          </div>
+        </div>
+
+        <!-- Colonne 2 : Liens utiles (comme sur la maquette : Accueil, Decouvrir, Evenements, A propos) -->
+        <div>
+          <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4 font-display">
+            Liens utiles
+          </h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#hero" class="hover:text-gold transition-colors">Accueil</a></li>
+            <li><a href="#categories" class="hover:text-gold transition-colors">Découvrir</a></li>
+            <li><a href="#categories" class="hover:text-gold transition-colors">Événements</a></li>
+            <li><a href="#how-it-works" class="hover:text-gold transition-colors">À propos</a></li>
+          </ul>
+        </div>
+
+        <!-- Colonne 3 : Suivez-nous (Reseaux sociaux avec icones colorees fideles a la maquette) -->
+        <div>
+          <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4 font-display">
+            Suivez-nous
+          </h4>
+          <p class="text-sm text-gray-300 mb-4">
+            Rejoignez notre communauté :
+          </p>
+          <div class="flex items-center gap-3">
+            <!-- Facebook (Bleu fidele a l'icone de la maquette) -->
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center text-white hover:scale-110 transition-transform shadow-md">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+            </a>
+            <!-- TikTok (Noir/Sombre fidele a la maquette) -->
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="w-10 h-10 rounded-full bg-[#000000] border border-white/20 flex items-center justify-center text-white hover:scale-110 transition-transform shadow-md">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+            <!-- YouTube (Rouge fidele a la maquette) -->
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="w-10 h-10 rounded-full bg-[#FF0000] flex items-center justify-center text-white hover:scale-110 transition-transform shadow-md">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Colonne 4 : Restez informe (Champ blanc + Bouton dore en dessous comme sur la maquette) -->
+        <div>
+          <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-2 font-display">
+            Restez informé
+          </h4>
+          <p class="text-xs text-gray-300 mb-3">
+            Recevez nos actualités par email
+          </p>
+          <form id="newsletterForm" onsubmit="handleNewsletter(event)" class="space-y-3">
+            <input 
+              type="email" 
+              id="newsletterEmail"
+              required 
+              placeholder="Votre e-mail" 
+              class="w-full px-4 py-2.5 rounded-lg bg-white text-gray-900 placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-gold shadow-sm"
+            >
+            <button 
+              type="submit" 
+              class="w-full py-2.5 rounded-lg bg-gold-gradient text-[#071F14] font-bold text-sm shadow-gold hover:shadow-gold-lg hover:brightness-105 transition-all"
+            >
+              S'abonner
+            </button>
+            <p id="newsletterSuccess" class="hidden text-xs text-gold font-medium mt-1">
+              ✓ Merci ! Vous êtes bien inscrit.
+            </p>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Bas de page (Texte exact demande) -->
+      <div class="pt-8 border-t border-mali-border/20 text-center text-xs text-gray-400">
+        <p>&copy; 2026 <strong>MaliExplorer</strong>. Tous droits réservés.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MODALE INTERACTIVE IMMERSION 360°
+       ========================================================================== -->
+  <div id="modal360" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
+    <div class="relative w-full max-w-4xl bg-[#092215] border border-gold/40 rounded-3xl overflow-hidden shadow-2xl">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gold/20 bg-[#06170E]">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-gold animate-ping"></span>
+          <h3 class="text-white font-bold font-display text-lg">Visite Virtuelle 360° — Grande Mosquée de Djenné</h3>
+        </div>
+        <button onclick="closeModal360()" class="text-gray-400 hover:text-white p-1 rounded-lg">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="relative h-96 sm:h-[450px] overflow-hidden group cursor-grab active:cursor-grabbing">
+        <img id="panoramicImg" src="maliexplorer-djenne.jpg" alt="Panoramique 360" class="w-full h-full object-cover transition-transform duration-700">
+        <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+          <div class="px-5 py-2.5 rounded-full bg-black/70 border border-gold/50 text-gold text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
+            Faites glisser la souris pour explorer l'angle 360°
+          </div>
+        </div>
+      </div>
+      <div class="px-6 py-4 bg-[#06170E] flex items-center justify-between">
+        <span class="text-xs text-gray-300">Monument classé au Patrimoine Mondial de l'UNESCO</span>
+        <button onclick="closeModal360()" class="px-4 py-2 rounded-full bg-gold-gradient text-[#071F14] font-bold text-xs">
+          Fermer la vue
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript interactif pour Header, Burger, Modale 360 & Formulaire -->
+  <script>
+    // 1. Menu Mobile Burger
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+
+    // 2. Modale Immersion 360
+    const modal360 = document.getElementById('modal360');
+    function openModal360() {
+      if (!modal360) return;
+      modal360.classList.remove('hidden');
+      modal360.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal360() {
+      if (!modal360) return;
+      modal360.classList.add('hidden');
+      modal360.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+    if (modal360) {
+      modal360.addEventListener('click', (e) => {
+        if (e.target === modal360) closeModal360();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal360();
+      });
+    }
+
+    // 3. Effet Panoramique sur l'image 360
+    const panoramicImg = document.getElementById('panoramicImg');
+    if (panoramicImg) {
+      const currentScale = 1.15;
+      panoramicImg.style.transform = `scale(${currentScale})`;
+
+      panoramicImg.parentElement.addEventListener('mousemove', (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const move = (x - 0.5) * -50;
+        panoramicImg.style.transform = `scale(${currentScale}) translateX(${move}px)`;
+      });
+    }
+
+    // 4. Formulaire Newsletter
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const input = document.getElementById('newsletterEmail');
+      const success = document.getElementById('newsletterSuccess');
+      if (input && input.value) {
+        success.classList.remove('hidden');
+        input.value = '';
+        setTimeout(() => {
+          success.classList.add('hidden');
+        }, 5000);
+      }
+    }
+  </script>
+
+</body>
+</html>
